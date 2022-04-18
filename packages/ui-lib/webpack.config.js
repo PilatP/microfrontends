@@ -1,26 +1,24 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const { ModuleFederationPlugin } = require('webpack').container;
 const deps = require('./package.json').dependencies;
 
 const mode = process.env.NODE_ENV || 'production';
 
 module.exports = {
   mode,
-  entry: './src/index.ts',
   output: {
-    publicPath: 'http://localhost:3002/',
+    publicPath: 'auto',
   },
   devtool: 'source-map',
   optimization: {
     minimize: mode === 'production',
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.json'],
+    extensions: ['.tsx', '.ts'],
   },
   module: {
     rules: [
       {
-        test: /\.(tsx|ts)$/,
+        test: /\.(js|jsx|tsx|ts)$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
       },
@@ -29,14 +27,11 @@ module.exports = {
 
   plugins: [
     new ModuleFederationPlugin({
-      name: 'footers',
-      library: { type: 'var', name: 'footers' },
+      name: 'ui_lib',
+      library: { type: 'var', name: 'ui_lib' },
       filename: 'remoteEntry.js',
       exposes: {
-        './App': './src/App',
-      },
-      remotes: {
-        headers: 'headers',
+        './Components': './src/components/',
       },
       shared: {
         react: { singleton: true, eager: false, requiredVersion: deps.react },
@@ -46,9 +41,6 @@ module.exports = {
           requiredVersion: deps.react,
         },
       },
-    }),
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
     }),
   ],
 };

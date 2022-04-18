@@ -8,7 +8,7 @@ module.exports = {
   mode,
   entry: './src/index.ts',
   output: {
-    publicPath: 'http://localhost:3001/',
+    publicPath: 'auto',
   },
   devtool: 'source-map',
   optimization: {
@@ -41,7 +41,14 @@ module.exports = {
       remotes: {
         footers: 'footers',
       },
-      shared: ['react', 'react-dom'],
+      shared: {
+        react: { singleton: true, eager: false, requiredVersion: deps.react },
+        'react-dom': {
+          singleton: true,
+          eager: false,
+          requiredVersion: deps.react,
+        },
+      },
     }),
   ],
 };

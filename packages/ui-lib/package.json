@@ -1,11 +1,11 @@
 {
-  "name": "main",
+  "name": "ui_lib",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "serve dist -p 3000",
+    "start": "serve dist -p 3003",
     "build": "webpack --mode production",
-    "dev": "concurrently \"webpack --watch\" \"serve dist -p 3000\""
+    "dev": "concurrently \"webpack --watch\" \"serve dist -p 3003\""
   },
   "dependencies": {
     "react": "^18.0.0",
