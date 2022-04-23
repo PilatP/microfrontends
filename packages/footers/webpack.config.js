@@ -1,18 +1,19 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const deps = require('./package.json').dependencies;
+require('dotenv').config();
 
-const mode = process.env.NODE_ENV || 'production';
+const {
+  NODE_ENV = 'production',
+  UI_LIB_APP_ENTRY_URL,
+  STORE_APP_ENTRY_URL,
+} = process.env;
 
 module.exports = {
-  mode,
+  mode: NODE_ENV,
   entry: './src/index.ts',
-  output: {
-    publicPath: 'http://localhost:3002/',
-  },
-  devtool: 'source-map',
   optimization: {
-    minimize: mode === 'production',
+    minimize: NODE_ENV === 'production',
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.json'],
@@ -30,13 +31,13 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       name: 'footers',
-      library: { type: 'var', name: 'footers' },
       filename: 'remoteEntry.js',
       exposes: {
         './App': './src/App',
       },
       remotes: {
-        headers: 'headers',
+        'ui-lib': `ui_lib@${UI_LIB_APP_ENTRY_URL}`,
+        store: `store@${STORE_APP_ENTRY_URL}`,
       },
       shared: {
         'styled-components': {

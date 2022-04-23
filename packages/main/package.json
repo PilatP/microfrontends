@@ -22,7 +22,6 @@
     "babel-loader": "^8.0.6",
     "concurrently": "^7.1.0",
     "dotenv": "^16.0.0",
-    "dotenv-webpack": "^7.1.0",
     "html-webpack-plugin": "^5.5.0",
     "serve": "^13.0.2",
     "ts-loader": "^9.1.2",

@@ -1,12 +1,13 @@
 const { ModuleFederationPlugin } = require('webpack').container;
 const deps = require('./package.json').dependencies;
+require('dotenv').config();
 
-const mode = process.env.NODE_ENV || 'production';
+const { NODE_ENV = 'production' } = process.env;
 
 module.exports = {
-  mode,
+  mode: NODE_ENV,
   optimization: {
-    minimize: mode === 'production',
+    minimize: NODE_ENV === 'production',
   },
   resolve: {
     extensions: ['.tsx', '.ts'],

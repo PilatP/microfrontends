@@ -2,18 +2,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 const deps = require('./package.json').dependencies;
 
-const mode = process.env.NODE_ENV || 'production';
+require('dotenv').config();
+
+const { NODE_ENV = 'production' } = process.env;
 
 module.exports = {
-  mode,
+  mode: NODE_ENV,
   entry: './src/index.ts',
-  output: {
-    publicPath: 'auto',
-  },
-  // devtool: 'source-map',
   optimization: {
-    // minimize: mode === 'production',
-    minimize: false,
+    minimize: NODE_ENV === 'production',
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
