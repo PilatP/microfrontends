@@ -1,3 +1,4 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 const deps = require('./package.json').dependencies;
 
@@ -5,20 +6,22 @@ const mode = process.env.NODE_ENV || 'production';
 
 module.exports = {
   mode,
+  entry: './src/index.ts',
   output: {
     publicPath: 'auto',
   },
-  devtool: 'source-map',
+  // devtool: 'source-map',
   optimization: {
-    minimize: mode === 'production',
+    // minimize: mode === 'production',
+    minimize: false,
   },
   resolve: {
-    extensions: ['.tsx', '.ts'],
+    extensions: ['.tsx', '.ts', '.js'],
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx|tsx|ts)$/,
+        test: /\.(tsx|ts)$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
       },
@@ -26,21 +29,22 @@ module.exports = {
   },
 
   plugins: [
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+    }),
     new ModuleFederationPlugin({
-      name: 'ui_lib',
-      library: { type: 'var', name: 'ui_lib' },
+      name: 'store',
+      library: { type: 'var', name: 'store' },
       filename: 'remoteEntry.js',
       exposes: {
-        './Components': './src/components/',
+        './Store': './src/redux/index',
       },
       shared: {
-        'styled-components': {
-          singleton: true,
-          requiredVersion: deps['styled-components'],
-        },
-        react: { singleton: true, requiredVersion: deps.react },
+        ...deps,
+        react: { singleton: true, eager: false, requiredVersion: deps.react },
         'react-dom': {
           singleton: true,
+          eager: false,
           requiredVersion: deps.react,
         },
       },

@@ -2,7 +2,11 @@
   "name": "federation-example",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/main",
+    "packages/ui-lib",
+    "packages/store",
+    "packages/headers",
+    "packages/footers"
   ],
   "scripts": {
     "start": "wsrun --parallel start",

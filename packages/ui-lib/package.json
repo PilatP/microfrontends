@@ -5,7 +5,8 @@
   "scripts": {
     "start": "serve dist -p 3003",
     "build": "webpack --mode production",
-    "dev": "concurrently \"webpack --watch\" \"serve dist -p 3003\""
+    "dev": "concurrently \"webpack --watch --mode development\" \"serve dist -p 3003\"",
+    "types": "tsc --declaration --emitDeclarationOnly --outDir types"
   },
   "dependencies": {
     "react": "^18.0.0",
@@ -20,6 +21,7 @@
     "@types/react-dom": "^18.0.1",
     "@types/styled-components": "^5.1.15",
     "babel-loader": "^8.0.6",
+    "babel-plugin-styled-components": "^2.0.7",
     "concurrently": "^7.1.0",
     "html-webpack-plugin": "^5.5.0",
     "serve": "^13.0.2",

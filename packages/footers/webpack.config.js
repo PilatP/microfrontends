@@ -39,10 +39,13 @@ module.exports = {
         headers: 'headers',
       },
       shared: {
-        react: { singleton: true, eager: false, requiredVersion: deps.react },
+        'styled-components': {
+          singleton: true,
+          requiredVersion: deps['styled-components'],
+        },
+        react: { singleton: true, requiredVersion: deps.react },
         'react-dom': {
           singleton: true,
-          eager: false,
           requiredVersion: deps.react,
         },
       },

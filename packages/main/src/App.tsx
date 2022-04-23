@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import { Button, Link } from 'ui-lib/Components';
+import { StateContent } from './components/StateContent';
 
 export interface IAppProps {}
 
@@ -11,10 +11,16 @@ const FootersApp = React.lazy(() => import('footers/App'));
 const Container = styled.div`
   display: flex;
   flex-flow: column;
+  width: fit-content;
+  margin: 0 auto;
 `;
 
 const MainContainer = styled.div`
   height: 100%;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.07);
+  border-radius: 16px;
+  margin: 24px;
+  padding: 24px;
 `;
 const HeaderContainer = styled.div``;
 const FooterContainer = styled.div``;
@@ -27,7 +33,9 @@ const App = ({ ...rest }: IAppProps) => {
           <HeadersApp />
         </React.Suspense>
       </HeaderContainer>
-      <MainContainer>main content11</MainContainer>
+      <MainContainer>
+        <StateContent />
+      </MainContainer>
       <FooterContainer>
         <React.Suspense fallback={<div>Loading footer...</div>}>
           <FootersApp />

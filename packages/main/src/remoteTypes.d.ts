@@ -19,3 +19,7 @@ declare module 'footers/App' {
 //   declare const Button: ({ text, ...rest }: IButtonProps) => JSX.Element;
 //   export { Button };
 // }
+
+// declare module 'store/Store' {
+
+// }

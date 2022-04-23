@@ -1,12 +1,18 @@
 /// <reference types="react" />
 export interface IButtonProps {
   text?: string;
+  onClick?: () => void;
 }
-declare const Button: ({ text, ...rest }: IButtonProps) => JSX.Element;
+declare const Button: ({ text, onClick, ...rest }: IButtonProps) => JSX.Element;
 
 export interface ILinkProps {
   text: string;
 }
 declare const Link: ({ text, ...rest }: ILinkProps) => JSX.Element;
 
-export { Button, Link };
+export interface ITextProps {
+  text: string;
+}
+declare const Text: ({ text, ...rest }: ITextProps) => JSX.Element;
+
+export { Button, Link, Text };

@@ -1,18 +1,25 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
+const Dotenv = require('dotenv-webpack');
 const deps = require('./package.json').dependencies;
 
-const mode = process.env.NODE_ENV || 'production';
-
+require('dotenv').config();
+const {
+  NODE_ENV = 'production',
+  HEADERS_APP_ENTRY_URL,
+  FOOTERS_APP_ENTRY_URL,
+  UI_LIB_APP_ENTRY_URL,
+  STORE_APP_ENTRY_URL,
+} = process.env;
 module.exports = {
-  mode,
+  mode: NODE_ENV,
   entry: './src/index.ts',
   devtool: 'source-map',
   optimization: {
-    minimize: mode === 'production',
+    minimize: NODE_ENV === 'production',
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.json'],
+    extensions: ['.tsx', '.ts', '.json', 'js'],
   },
   module: {
     rules: [
@@ -25,17 +32,23 @@ module.exports = {
   },
 
   plugins: [
+    new Dotenv(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
     new ModuleFederationPlugin({
       name: 'main',
       remotes: {
-        headers: 'headers@[window.lib_app_url]/remoteEntry.js',
-        footers: 'footers@[window.lib_app_url]remoteEntry.js',
-        'ui-lib': 'ui_lib@[window.lib_app_url]/remoteEntry.js',
+        headers: `headers@${HEADERS_APP_ENTRY_URL}`,
+        footers: `footers@${FOOTERS_APP_ENTRY_URL}`,
+        'ui-lib': `ui_lib@${UI_LIB_APP_ENTRY_URL}`,
+        store: `store@${STORE_APP_ENTRY_URL}`,
       },
       shared: {
+        'styled-components': {
+          singleton: true,
+          requiredVersion: deps['styled-components'],
+        },
         react: { singleton: true, eager: true, requiredVersion: deps.react },
         'react-dom': {
           singleton: true,
