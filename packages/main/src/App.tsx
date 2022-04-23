@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Link } from 'ui-lib/Components';
+import { Text } from 'ui-lib/Components';
 import { StateContent } from './components/StateContent';
-
+// import HeadersApp from 'headers/App';
 export interface IAppProps {}
 
 const HeadersApp = React.lazy(() => import('headers/App'));
@@ -14,35 +14,37 @@ const Container = styled.div`
   width: fit-content;
   margin: 0 auto;
 `;
-
-const MainContainer = styled.div`
+const AppContainer = styled.div`
   height: 100%;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.07);
   border-radius: 16px;
   margin: 24px;
   padding: 24px;
 `;
-const HeaderContainer = styled.div``;
-const FooterContainer = styled.div``;
+const MainContainer = styled(AppContainer)``;
+
+const HeaderContainer = styled(AppContainer)``;
+const FooterContainer = styled(AppContainer)``;
+
+const AppNameText = styled(Text)``;
 
 const App = ({ ...rest }: IAppProps) => {
   return (
     <Container {...rest}>
       <HeaderContainer>
+        <AppNameText text='Headers app content:' />
         <React.Suspense fallback={<div>Loading header...</div>}>
           <HeadersApp />
         </React.Suspense>
       </HeaderContainer>
       <MainContainer>
+        <AppNameText text='Main app content:' />
         <StateContent />
       </MainContainer>
       <FooterContainer>
         <React.Suspense fallback={<div>Loading footer...</div>}>
+          <AppNameText text='Footers app content:' />
           <FootersApp />
-        </React.Suspense>
-        <React.Suspense fallback={<div>Loading footer...</div>}>
-          <Button text='sdfsdfs' />
-          <Link text='link' />
         </React.Suspense>
       </FooterContainer>
     </Container>

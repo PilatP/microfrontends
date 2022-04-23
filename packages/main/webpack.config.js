@@ -1,9 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
-const Dotenv = require('dotenv-webpack');
+const { ModuleFederationPlugin } = require('webpack').container;
 const deps = require('./package.json').dependencies;
+require('dotenv').config({ path: '../../.env' });
 
-require('dotenv').config();
 const {
   NODE_ENV = 'production',
   HEADERS_APP_ENTRY_URL,
@@ -11,6 +10,7 @@ const {
   UI_LIB_APP_ENTRY_URL,
   STORE_APP_ENTRY_URL,
 } = process.env;
+
 module.exports = {
   mode: NODE_ENV,
   entry: './src/index.ts',
@@ -32,7 +32,6 @@ module.exports = {
   },
 
   plugins: [
-    new Dotenv(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
