@@ -12,10 +12,6 @@ const {
 module.exports = {
   mode: NODE_ENV,
   entry: './src/index.ts',
-  output: {
-    publicPath: 'auto',
-  },
-  devtool: 'source-map',
   optimization: {
     minimize: NODE_ENV === 'production',
   },

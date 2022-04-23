@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "serve dist -p 3001",
-    "build": "webpack --mode production",
+    "start": "serve dist",
+    "build": "webpack --mode production --output-path=../main/dist/headers/",
     "dev": "concurrently \"webpack --watch --mode development\" \"serve dist -p 3001\""
   },
   "dependencies": {
