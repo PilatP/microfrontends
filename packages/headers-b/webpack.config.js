@@ -1,14 +1,10 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 const deps = require('./package.json').dependencies;
-
 require('dotenv').config();
 
 const {
   NODE_ENV = 'production',
-  HEADERS_APP_ENTRY_URL,
-  HEADERS_B_APP_ENTRY_URL,
-  FOOTERS_APP_ENTRY_URL,
   UI_LIB_APP_ENTRY_URL,
   STORE_APP_ENTRY_URL,
 } = process.env;
@@ -16,7 +12,6 @@ const {
 module.exports = {
   mode: NODE_ENV,
   entry: './src/index.ts',
-  devtool: 'source-map',
   optimization: {
     minimize: NODE_ENV === 'production',
   },
@@ -38,11 +33,12 @@ module.exports = {
       template: './public/index.html',
     }),
     new ModuleFederationPlugin({
-      name: 'main',
+      name: 'headers_b',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './App': './src/App',
+      },
       remotes: {
-        headers: `headers@${HEADERS_APP_ENTRY_URL}`,
-        'headers-b': `headers_b@${HEADERS_B_APP_ENTRY_URL}`,
-        footers: `footers@${FOOTERS_APP_ENTRY_URL}`,
         'ui-lib': `ui_lib@${UI_LIB_APP_ENTRY_URL}`,
         store: `store@${STORE_APP_ENTRY_URL}`,
       },
@@ -51,16 +47,12 @@ module.exports = {
           singleton: true,
           requiredVersion: deps['styled-components'],
         },
-        react: { singleton: true, eager: true, requiredVersion: deps.react },
+        react: { singleton: true, requiredVersion: deps.react },
         'react-dom': {
           singleton: true,
-          eager: true,
           requiredVersion: deps.react,
         },
       },
-    }),
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
     }),
   ],
 };

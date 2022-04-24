@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Text } from 'ui-lib/Components';
+import { Text, Variants } from 'ui-lib/Components';
 import { StateContent } from './components/StateContent';
 // import HeadersApp from 'headers/App';
 export interface IAppProps {}
 
 const HeadersApp = React.lazy(() => import('headers/App'));
+const HeadersBApp = React.lazy(() => import('headers-b/App'));
 const FootersApp = React.lazy(() => import('footers/App'));
 
 const Container = styled.div`
@@ -33,9 +34,14 @@ const App = ({ ...rest }: IAppProps) => {
     <Container {...rest}>
       <HeaderContainer>
         <AppNameText text='Headers app content:' />
-        <React.Suspense fallback={<div>Loading header...</div>}>
-          <HeadersApp />
-        </React.Suspense>
+        <Variants>
+          <React.Suspense fallback={<div>Loading header...</div>}>
+            <HeadersApp />
+          </React.Suspense>
+          <React.Suspense fallback={<div>Loading header-b...</div>}>
+            <HeadersBApp />
+          </React.Suspense>
+        </Variants>
       </HeaderContainer>
       <MainContainer>
         <AppNameText text='Main app content:' />

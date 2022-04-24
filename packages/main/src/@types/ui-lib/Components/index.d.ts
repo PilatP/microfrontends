@@ -15,4 +15,6 @@ export interface ITextProps {
 }
 declare const Text: ({ text, ...rest }: ITextProps) => JSX.Element;
 
-export { Button, Link, Text };
+declare const Variants: ({ children, ...rest }: React.PropsWithChildren<IVariantsProps>) => JSX.Element;
+
+export { Button, Link, Text, Variants };

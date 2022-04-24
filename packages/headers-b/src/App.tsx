@@ -10,7 +10,7 @@ const Container = styled.div`
 const App = ({ ...rest }: IAppProps) => {
   return (
     <Container {...rest}>
-      Variant A
+      Variant B
       <StateContent />
     </Container>
   );
