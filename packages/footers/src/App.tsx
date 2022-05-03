@@ -1,7 +1,11 @@
+import { useRootSelector } from 'store/Store';
+
 export interface IAppProps {}
 
 const App = ({ ...rest }: IAppProps) => {
-  return <div {...rest}>footers</div>;
+  const { isLogged } = useRootSelector((state: any) => state.appReducer);
+
+  return <div {...rest}>{isLogged ? 'auth footer' : 'not auth footer'}</div>;
 };
 
 export default App;

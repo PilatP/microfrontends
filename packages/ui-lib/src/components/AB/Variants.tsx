@@ -14,7 +14,6 @@ const Variants = ({
     const count = React.Children.count(children);
     const index = Math.floor(Math.random() * count);
     setVariant(React.Children.toArray(children)[index]);
-    console.log({ index });
   }, []);
 
   return <Container {...rest}>{variant}</Container>;

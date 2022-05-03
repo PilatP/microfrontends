@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Text, Variants } from 'ui-lib/Components';
-import { StateContent } from './components/StateContent';
+import { useLocation, Outlet } from 'react-router-dom';
+
 // import HeadersApp from 'headers/App';
 export interface IAppProps {}
 
@@ -27,9 +28,12 @@ const MainContainer = styled(AppContainer)``;
 const HeaderContainer = styled(AppContainer)``;
 const FooterContainer = styled(AppContainer)``;
 
-const AppNameText = styled(Text)``;
+export const AppNameText = styled(Text)``;
 
 const App = ({ ...rest }: IAppProps) => {
+  const { pathname } = useLocation();
+  console.log({ pathname });
+
   return (
     <Container {...rest}>
       <HeaderContainer>
@@ -38,14 +42,14 @@ const App = ({ ...rest }: IAppProps) => {
           <React.Suspense fallback={<div>Loading header...</div>}>
             <HeadersApp />
           </React.Suspense>
-          <React.Suspense fallback={<div>Loading header-b...</div>}>
+          {/* <React.Suspense fallback={<div>Loading header-b...</div>}>
             <HeadersBApp />
-          </React.Suspense>
+          </React.Suspense> */}
         </Variants>
       </HeaderContainer>
       <MainContainer>
-        <AppNameText text='Main app content:' />
-        <StateContent />
+        <Outlet />
+        {/* <Route index element={<StateContent />} /> */}
       </MainContainer>
       <FooterContainer>
         <React.Suspense fallback={<div>Loading footer...</div>}>

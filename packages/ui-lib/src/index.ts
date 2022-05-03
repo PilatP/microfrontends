@@ -1,3 +1,3 @@
-import { Button, Link, Text, Variants } from './components';
+import { Button, Link, NavLink, Text, Variants } from './components';
 
-export { Button, Link, Text, Variants };
+export { Button, Link, Text, Variants, NavLink };

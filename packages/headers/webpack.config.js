@@ -43,6 +43,7 @@ module.exports = {
         store: `store@${STORE_APP_ENTRY_URL}`,
       },
       shared: {
+        ...deps,
         'styled-components': {
           singleton: true,
           requiredVersion: deps['styled-components'],
@@ -51,6 +52,10 @@ module.exports = {
         'react-dom': {
           singleton: true,
           requiredVersion: deps.react,
+        },
+        'react-router-dom': {
+          singleton: true,
+          requiredVersion: deps['react-router-dom'],
         },
       },
     }),
