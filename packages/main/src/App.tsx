@@ -42,9 +42,9 @@ const App = ({ ...rest }: IAppProps) => {
           <React.Suspense fallback={<div>Loading header...</div>}>
             <HeadersApp />
           </React.Suspense>
-          {/* <React.Suspense fallback={<div>Loading header-b...</div>}>
+          <React.Suspense fallback={<div>Loading header-b...</div>}>
             <HeadersBApp />
-          </React.Suspense> */}
+          </React.Suspense>
         </Variants>
       </HeaderContainer>
       <MainContainer>
